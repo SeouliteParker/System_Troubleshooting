@@ -59,12 +59,12 @@ monitor.sh는 다음 항목을 점검한다.
 - 방화벽 비활성 및 임계값 초과 시 WARNING 기록
 
 프로세스 비정상 종료 검증 완료.
-포트 단독 비정상 상황은 추가 검증 필요.
+포트 장애 분기 테스트 복사본에서 exit 1 검증 완료.
 
 ### GitHub Issues
 - OOM: https://github.com/SeouliteParker/System_Troubleshooting/issues/1
 - CPU: https://github.com/SeouliteParker/System_Troubleshooting/issues/2
-- Deadlock: https://github.com/SeouliteParker/System_T
+- Deadlock: https://github.com/SeouliteParker/System_Troubleshooting/issues/3
 
 ### 정상 상태 통합 테스트 (2026-10-14)
 - 애플리케이션 PID 7099 실행 확인
