@@ -52,3 +52,32 @@ CPU_MAX_OCCUPY=80 설정에서도 내부 부하 55.82%에서
 
 Watchdog/SIGTERM 메시지는 확인되지 않았으므로
 종료 신호 및 내부 임계치 판단 로직은 추가 분석이 필요하다.
+
+## 6. Monitor & SIGTERM Verification
+
+### OS 관제 결과
+monitor.sh를 이용해 프로세스별 CPU 및 RSS를 측정했다.
+
+- 부모 PID 4833: CPU 약 0.2%
+- 작업 PID 4845: CPU 약 0.8~0.9%
+- 프로그램 내부 Current Load: 최대 53.98%
+
+OS 측정값과 애플리케이션 내부 부하 수치는
+서로 다른 측정 기준을 사용하고 있다.
+
+### 종료 신호 검증
+- CPU Threshold Violated 발생
+- 종료 코드: 143
+- 종료 신호: SIGTERM으로 해석 가능
+- Watchdog이 신호를 보냈는지는 미확정
+
+### 증거 파일
+- logs/monitor.log
+- logs/cpu_watchdog_test.log
+- logs/cpu_exit_test.log
+- logs/cpu_exit_code.txt
+
+### 결론
+CPU 임계치 위반과 SIGTERM 종료가 관측되었다.
+CPU 보호 정책의 작동과 관련된 종료로 추정되지만,
+신호 발신 주체는 추가 확인이 필요하다.
