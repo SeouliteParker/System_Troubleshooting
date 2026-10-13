@@ -17,7 +17,7 @@ After (40%):
 ## 3. Root Cause Analysis
 애플리케이션 내부 CPU 보호 정책이 작동한 것으로 추정된다.
 설정값 80%와 실제 경고값이 달라 추가 원인 분석이 필요하다.
-실제 OS CPU 점유율 및 Watchdog 종료 로그는 추가 확인이 필요하다.
+OS CPU 사용률을 별도 측정했고, strace로 SIGTERM 종료를 확인했다. 특정 Watchdog 함수 호출 여부는 미확정이다.
 
 ## 4. Workaround & Verification
 CPU_MAX_OCCUPY를 80에서 40으로 변경했다.
@@ -51,7 +51,7 @@ CPU_MAX_OCCUPY=80 설정에서도 내부 부하 55.82%에서
 임계치 위반이 발생했다.
 
 Watchdog/SIGTERM 메시지는 확인되지 않았으므로
-종료 신호 및 내부 임계치 판단 로직은 추가 분석이 필요하다.
+종료 신호는 strace로 확인했으나, 내부 CPU 임계치 판단 로직은 추가 분석이 필요하다.
 
 ## 6. Monitor & SIGTERM Verification
 
@@ -80,7 +80,7 @@ OS 측정값과 애플리케이션 내부 부하 수치는
 ### 결론
 CPU 임계치 위반과 SIGTERM 종료가 관측되었다.
 CPU 보호 정책의 작동과 관련된 종료로 추정되지만,
-신호 발신 주체는 추가 확인이 필요하다.
+strace에서 프로세스 자체의 SIGTERM 전송을 확인했다. 특정 Watchdog 함수의 호출 여부는 미확정이다.
 
 ## 7. strace SIGTERM Analysis
 
