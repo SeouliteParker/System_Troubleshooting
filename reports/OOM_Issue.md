@@ -107,3 +107,31 @@ MEMORY_LIMIT를 256MB에서 512MB로 변경했을 때
 증거:
 - logs/oom_256_final.log
 - logs/oom_512_final.log
+
+## 6. OS Memory Monitoring Evidence
+
+OS 수준의 메모리 측정 결과를 추가로 확인했다.
+
+프로세스 메모리 사용률 (ps %MEM):
+- 캐시 정리 전: 약 2.9~3.2%
+- 캐시 정리 후: 약 0.1%
+- 이후 재증가: 약 1.0%
+
+RSS:
+- 캐시 정리 전: 약 469~519MB
+- 캐시 정리 후: 약 19MB
+
+시스템 전체 메모리 사용률 (monitor.sh MEM):
+- 정상 상태 통합 테스트에서 약 6.5~6.8% 관측
+
+해석:
+- ps %MEM은 개별 프로세스의 메모리 사용 비율이다.
+- monitor.sh MEM은 시스템 전체 메모리 사용률이다.
+- Heap 증가, RSS 변화, 캐시 정리 및 복구 로그를 함께 분석했다.
+- 시스템 전체 MEM%만으로 개별 프로세스의 메모리 누수를 확정할 수는 없다.
+
+증거:
+- logs/memory_rss_final.log
+- logs/monitor.log
+- logs/oom_256_final.log
+- logs/oom_512_final.log
