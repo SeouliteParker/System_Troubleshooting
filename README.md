@@ -29,3 +29,39 @@ Ubuntu Linux에서 agent-leak-app의 시스템 장애를 재현하고 분석한 
 - 메모리 캐시 관리 및 누수 방지
 - CPU 부하 제한 및 모니터링
 - 스레드 락 획득 순서 통일
+
+## 최종 장애 검증 (2026-10-14)
+
+### 1. OOM 동일 조건 비교
+공통 조건: CPU_MAX_OCCUPY=40, MULTI_THREAD_ENABLE=false
+
+- Before: MEMORY_LIMIT=256, 33초 후 MemoryGuard 종료, EXIT_CODE=137
+- After: MEMORY_LIMIT=512, 캐시 정리 및 메모리 복구 확인, 90초 관찰
+- EXIT_CODE=124는 timeout에 의한 종료이며 OOM 종료가 아님
+
+증거: logs/oom_256_final.log, logs/oom_512_final.log
+
+### 2. CPU 종료 신호 분석
+- CPU Threshold Violated 발생
+- 종료 코드 143 (SIGTERM)
+- strace에서 kill 및 tgkill을 통한 SIGTERM 확인
+- 애플리케이션 내부 종료 동작은 확인했으나 Watchdog 함수 호출 여부는 미확정
+
+증거: logs/cpu_signal_trace.log, logs/cpu_strace.log
+
+### 3. 운영 모니터링
+monitor.sh는 다음 항목을 점검한다.
+
+- 프로세스 agent-leak-app-x86 실행 확인
+- TCP 15034 LISTEN 확인
+- 프로세스 또는 포트 비정상 시 exit 1
+- CPU, 메모리, 디스크 사용률 수집
+- 방화벽 비활성 및 임계값 초과 시 WARNING 기록
+
+프로세스 비정상 종료 검증 완료.
+포트 단독 비정상 상황은 추가 검증 필요.
+
+### GitHub Issues
+- OOM: https://github.com/SeouliteParker/System_Troubleshooting/issues/1
+- CPU: https://github.com/SeouliteParker/System_Troubleshooting/issues/2
+- Deadlock: https://github.com/SeouliteParker/System_T

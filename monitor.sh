@@ -8,6 +8,18 @@ echo "TIME,PID,PPID,CPU(%),RSS(KB),MEM(%),STATUS" >> "$LOG_FILE"
 while true; do
     TIME=$(date '+%F %T')
 
+    # 필수 점검: 프로세스 비정상 시 종료
+    if ! pgrep -x agent-leak-app- >/dev/null; then
+        echo "[CRITICAL] agent-leak-app-x86 process not running" | tee -a "$LOG_FILE"
+        exit 1
+    fi
+
+    # 필수 점검: TCP 15034 LISTEN 확인
+    if ! ss -ltnH | awk '$4 ~ /:15034$/ {found=1} END {exit !found}'; then
+        echo "[CRITICAL] TCP 15034 not LISTEN" | tee -a "$LOG_FILE"
+        exit 1
+    fi
+
     # 1. 프로세스별 CPU/메모리 수집
     ps -eo pid,ppid,%cpu,rss,%mem,stat,comm |
     awk -v t="$TIME" '$7 ~ /^agent-leak-app/ {
