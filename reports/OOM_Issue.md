@@ -76,3 +76,33 @@ After:
 - 불필요한 메모리 참조 해제
 - 캐시 크기 제한
 - 메모리 사용량 지속 모니터링
+
+## 5. Final Controlled Comparison (2026-10-14)
+
+동일한 조건에서 MEMORY_LIMIT만 변경하여 비교했다.
+
+공통 조건:
+- CPU_MAX_OCCUPY=40
+- MULTI_THREAD_ENABLE=false
+
+Before (256MB):
+- 실행 시간: 33초
+- Heap: 25MB → 275MB
+- MemoryGuard 종료
+- 종료 코드: 137 (SIGKILL)
+
+After (512MB):
+- 관찰 시간: 90초
+- Memory Cache Flushed 확인
+- MEMORY RECOVERED 확인
+- 종료 코드: 124 (timeout에 의한 종료)
+
+결론:
+MEMORY_LIMIT를 256MB에서 512MB로 변경했을 때
+프로세스 생존 시간이 증가하고 메모리 복구가 관측됐다.
+
+이는 동일 CPU 조건에서 검증한 결과다.
+
+증거:
+- logs/oom_256_final.log
+- logs/oom_512_final.log

@@ -1,0 +1,6 @@
+5360  kill(5360, SIGTERM)               = 0
+5360  --- SIGTERM {si_signo=SIGTERM, si_code=SI_USER, si_pid=5360, si_uid=1267601137} ---
+5360  +++ killed by SIGTERM +++
+5359  tgkill(5359, 5359, SIGTERM)       = 0
+5359  --- SIGTERM {si_signo=SIGTERM, si_code=SI_TKILL, si_pid=5359, si_uid=1267601137} ---
+5359  +++ killed by SIGTERM +++

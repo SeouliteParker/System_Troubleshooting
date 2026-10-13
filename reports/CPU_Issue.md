@@ -81,3 +81,25 @@ OS 측정값과 애플리케이션 내부 부하 수치는
 CPU 임계치 위반과 SIGTERM 종료가 관측되었다.
 CPU 보호 정책의 작동과 관련된 종료로 추정되지만,
 신호 발신 주체는 추가 확인이 필요하다.
+
+## 7. strace SIGTERM Analysis
+
+CPU 장애 발생 시 strace로 종료 신호를 추적했다.
+
+관측된 시스템 호출:
+- PID 5360: kill(5360, SIGTERM) = 0
+- PID 5359: tgkill(5359, 5359, SIGTERM) = 0
+
+두 프로세스 모두 자신의 프로세스 또는 스레드에
+SIGTERM을 전송한 사실이 확인되었다.
+
+CPU Threshold Violated 로그 및 종료 코드 143과 함께
+분석하면 애플리케이션 내부 종료 로직이 작동했다는
+근거가 된다.
+
+단, 내부 Watchdog 함수가 직접 호출했는지는
+확정하지 않는다.
+
+증거:
+- logs/cpu_signal_trace.log
+- logs/cpu_strace.log

@@ -1,0 +1,39 @@
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'zukrass3800' (uid=1267601137)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/6] Verifying Log Permission            [OK]
+   ... Log directory is writable: /home/zukrass3800/System_Troubleshooting/logs
+[6/6] Verifying Mission Environment       [OK]
+   ... MEMORY_LIMIT=512MB, CPU_MAX_OCCUPY=80%, MULTI_THREAD_ENABLE=False
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-10-14 07:43:31,735 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-10-14 07:43:31,735 [INFO] Agent listening at port 15034
+
+==================================================
+ [ Agent Initiate ] Resource Check 
+==================================================
+ [ MEMORY ] Limit: 512MB 		[ OK ]
+ [ CPU    ] Limit: 80%  		[ WARNING: Recommend Under 50% ]
+ [ THREAD ] Concurrency: False 		[ OK ]
+--------------------------------------------------
+ >>> SYSTEM STATUS: STABLE. STARTING WORKLOAD MONITORING...
+==================================================
+
+2026-10-14 07:43:33,747 [INFO] [CpuWorker] Started. Maximum CPU Limit: 80%
+2026-10-14 07:43:33,747 [INFO] [CpuWorker] Current Load: 5.00%
+2026-10-14 07:43:36,867 [INFO] [CpuWorker] Current Load: 11.66%
+2026-10-14 07:43:39,987 [INFO] [CpuWorker] Current Load: 21.03%
+2026-10-14 07:43:43,108 [INFO] [CpuWorker] Current Load: 30.88%
+2026-10-14 07:43:46,228 [INFO] [CpuWorker] Current Load: 39.01%
+2026-10-14 07:43:49,348 [INFO] [CpuWorker] Current Load: 45.04%
+2026-10-14 07:43:52,468 [INFO] [CpuWorker] Current Load: 47.97%
+2026-10-14 07:43:55,588 [INFO] [CpuWorker] Current Load: 52.73%
+2026-10-14 07:43:55,689 [CRITICAL] [CpuWorker] CPU Threshold Violated! (52.730000000000004%).
