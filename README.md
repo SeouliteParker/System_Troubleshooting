@@ -65,3 +65,12 @@ monitor.sh는 다음 항목을 점검한다.
 - OOM: https://github.com/SeouliteParker/System_Troubleshooting/issues/1
 - CPU: https://github.com/SeouliteParker/System_Troubleshooting/issues/2
 - Deadlock: https://github.com/SeouliteParker/System_T
+
+### 정상 상태 통합 테스트 (2026-10-14)
+- 애플리케이션 PID 7099 실행 확인
+- TCP 15034 LISTEN 확인
+- monitor.sh 8초간 정상 관제
+- 종료 코드 124: timeout에 의한 정상적인 관찰 종료
+- 프로세스 CPU/RSS 및 시스템 CPU·메모리·디스크 기록 확인
+- 방화벽 비활성 상태 확인
+- 테스트 후 애플리케이션과 포트 정상 종료 확인
