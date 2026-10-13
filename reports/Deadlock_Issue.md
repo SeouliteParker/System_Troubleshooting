@@ -66,3 +66,25 @@ After:
 - 모든 스레드의 락 획득 순서 통일
 - 락 대기 타임아웃 적용
 - 불필요한 중첩 락 제거
+
+## 5. OS-Level Thread Verification
+
+교착상태 발생 당시 ps -L 명령어로
+작업 프로세스 PID 2782의 스레드 상태를 확인했다.
+
+- TID 2782: futex_wait, CPU 0.0%
+- TID 2783: futex_wait, CPU 0.0%
+- TID 2784: futex_wait, CPU 0.0%
+
+세 스레드 모두 동기화 자원을 기다리는 상태였다.
+
+애플리케이션의 WAITING/BLOCKED 로그와 함께
+교착상태를 판단하는 근거로 사용했다.
+
+증거 파일:
+- logs/deadlock_true.log
+- logs/deadlock_false.log
+- logs/deadlock_ps_evidence.txt
+
+참고: ps -L 결과는 실험 당시 터미널 출력을
+사후 전사한 것이며, 새로 측정한 결과는 아니다.

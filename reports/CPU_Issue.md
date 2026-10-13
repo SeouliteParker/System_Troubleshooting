@@ -22,3 +22,33 @@ After (40%):
 ## 4. Workaround & Verification
 CPU_MAX_OCCUPY를 80에서 40으로 변경했다.
 변경 후 관측 구간에서 임계치 위반 없이 작업이 지속됐다.
+
+## 5. Additional OS-Level Verification
+
+### CPU 80% 재현 실험 (2026-10-14)
+
+환경:
+- MEMORY_LIMIT=512
+- CPU_MAX_OCCUPY=80
+- MULTI_THREAD_ENABLE=false
+
+측정 결과:
+- 내부 CpuWorker 최대 부하: 55.82%
+- OS ps 측정 작업 프로세스 CPU: 약 0.7~0.8%
+- CPU Threshold Violated 발생: 07:05:59
+- 프로세스 종료 확인
+
+증거 파일:
+- logs/cpu_80_verify.log
+- logs/cpu_80_ps.log
+
+### 분석
+
+애플리케이션 내부 Current Load와 OS의 CPU 사용률은
+일치하지 않았다.
+
+CPU_MAX_OCCUPY=80 설정에서도 내부 부하 55.82%에서
+임계치 위반이 발생했다.
+
+Watchdog/SIGTERM 메시지는 확인되지 않았으므로
+종료 신호 및 내부 임계치 판단 로직은 추가 분석이 필요하다.
