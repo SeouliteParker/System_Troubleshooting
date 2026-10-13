@@ -1,0 +1,39 @@
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'zukrass3800' (uid=1267601137)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/6] Verifying Log Permission            [OK]
+   ... Log directory is writable: /home/zukrass3800/System_Troubleshooting/logs
+[6/6] Verifying Mission Environment       [OK]
+   ... MEMORY_LIMIT=512MB, CPU_MAX_OCCUPY=80%, MULTI_THREAD_ENABLE=False
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-10-13 21:49:05,507 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-10-13 21:49:05,508 [INFO] Agent listening at port 15034
+
+==================================================
+ [ Agent Initiate ] Resource Check 
+==================================================
+ [ MEMORY ] Limit: 512MB 		[ OK ]
+ [ CPU    ] Limit: 80%  		[ WARNING: Recommend Under 50% ]
+ [ THREAD ] Concurrency: False 		[ OK ]
+--------------------------------------------------
+ >>> SYSTEM STATUS: STABLE. STARTING WORKLOAD MONITORING...
+==================================================
+
+2026-10-13 21:49:07,518 [INFO] [CpuWorker] Started. Maximum CPU Limit: 80%
+2026-10-13 21:49:07,518 [INFO] [CpuWorker] Current Load: 5.00%
+2026-10-13 21:49:10,639 [INFO] [CpuWorker] Current Load: 7.40%
+2026-10-13 21:49:13,759 [INFO] [CpuWorker] Current Load: 13.41%
+2026-10-13 21:49:16,879 [INFO] [CpuWorker] Current Load: 22.17%
+2026-10-13 21:49:19,999 [INFO] [CpuWorker] Current Load: 31.01%
+2026-10-13 21:49:23,118 [INFO] [CpuWorker] Current Load: 40.18%
+2026-10-13 21:49:26,238 [INFO] [CpuWorker] Current Load: 45.65%
+2026-10-13 21:49:29,357 [INFO] [CpuWorker] Current Load: 51.42%
+2026-10-13 21:49:29,458 [CRITICAL] [CpuWorker] CPU Threshold Violated! (51.42%).

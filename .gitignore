@@ -1,0 +1,15 @@
+# 인증 정보
+api_keys/
+*.key
+
+# 제공된 실행 파일
+agent-leak-app-x86
+agent-leak-app-arm64
+*.zip
+
+# 작업용 데이터
+upload_files/
+
+# 임시 파일
+__pycache__/
+*.pyc

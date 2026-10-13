@@ -1,0 +1,40 @@
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'zukrass3800' (uid=1267601137)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/6] Verifying Log Permission            [OK]
+   ... Log directory is writable: /home/zukrass3800/System_Troubleshooting/logs
+[6/6] Verifying Mission Environment       [OK]
+   ... MEMORY_LIMIT=512MB, CPU_MAX_OCCUPY=80%, MULTI_THREAD_ENABLE=False
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-10-13 21:39:21,824 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-10-13 21:39:21,824 [INFO] Agent listening at port 15034
+
+==================================================
+ [ Agent Initiate ] Resource Check 
+==================================================
+ [ MEMORY ] Limit: 512MB 		[ OK ]
+ [ CPU    ] Limit: 80%  		[ WARNING: Recommend Under 50% ]
+ [ THREAD ] Concurrency: False 		[ OK ]
+--------------------------------------------------
+ >>> SYSTEM STATUS: STABLE. STARTING WORKLOAD MONITORING...
+==================================================
+
+2026-10-13 21:39:23,836 [INFO] [CpuWorker] Started. Maximum CPU Limit: 80%
+2026-10-13 21:39:23,836 [INFO] [CpuWorker] Current Load: 5.00%
+2026-10-13 21:39:26,959 [INFO] [CpuWorker] Current Load: 9.96%
+2026-10-13 21:39:30,079 [INFO] [CpuWorker] Current Load: 16.38%
+2026-10-13 21:39:33,199 [INFO] [CpuWorker] Current Load: 19.73%
+2026-10-13 21:39:36,317 [INFO] [CpuWorker] Current Load: 23.20%
+2026-10-13 21:39:39,438 [INFO] [CpuWorker] Current Load: 28.57%
+2026-10-13 21:39:42,558 [INFO] [CpuWorker] Current Load: 35.24%
+2026-10-13 21:39:45,677 [INFO] [CpuWorker] Current Load: 44.56%
+2026-10-13 21:39:48,796 [INFO] [CpuWorker] Current Load: 54.55%
+2026-10-13 21:39:48,897 [CRITICAL] [CpuWorker] CPU Threshold Violated! (54.550000000000004%).
